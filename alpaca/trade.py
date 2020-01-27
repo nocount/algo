@@ -1,7 +1,7 @@
 # ALgo trading test script for paper market with Alpaca
 
 import requests
-import config
+from alpaca import config
 import json
 
 BASE_URL = 'https://paper-api.alpaca.markets'
