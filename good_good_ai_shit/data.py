@@ -36,9 +36,20 @@ def process_dataset(path):
     y_normalizer.fit(next_day_open_values)
     
     # TODO: need to include technical indicators here
+
+    technical_indicators = []
+    for his in ohlcv_histories_normalized:
+        # since we are using his[3] we are taking the SMA of the closing price
+        sma = np.mean(his[:, 3])
+        technical_indicators.append(np.array([sma]))
+
+    technical_indicators = np.array(technical_indicators)
+
+    tech_ind_scaler = preprocessing.MinMaxScaler()
+    technical_indicators_normalised = tech_ind_scaler.fit_transform(technical_indicators)
+
     
-    return ohlcv_histories_normalized, next_day_open_values_normalized, next_day_open_values, y_normalizer
-    # do some other shit
+    return ohlcv_histories_normalized, technical_indicators_normalised, next_day_open_values_normalized, next_day_open_values, y_normalizer
 
 
 if __name__ == '__main__':
